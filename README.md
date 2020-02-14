@@ -11,6 +11,36 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 5. As an authenticated user, I can like the images.
 6. As an unauthenticated user, I can browse users and see the images they have linked to.
 
+## Set up
+Instructions for set up.
+
+### Generating key and secret for https
+1. cd into `server` directory
+2. Follow the instructions in this [medium artical]("https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-using-express-366435d61f28")
+
+### Config files
+Under `Server` directory, create a `config.js` file.
+
+```
+const config = {
+    facebookApiKey: 'your key',
+    facebookApiSecret: 'your secret',
+    callbackUrl: 'https://localhost:8081/user/callback'
+};
+
+module.exports = config;
+```
+
+### Facebook App
+Set up a Facebook app at facebook developer site. Make sure you have `FacebookLogin` as one of the product. 
+
+Here are some things you have to take note:
+1. Have a valid Privacy Policy URL.
+2. Add `localhost` as one of your app domains
+3. Make sure you toggle your app status to live
+4. Under Facebook Login  -> Settings, add `https://localhost:8081/user/callback` as a valid redirect url
+5. Under quickstart, chose Web and add the above callback url as your Site URL.
+
 ## Available Scripts
 
 In the project directory, you can run:
