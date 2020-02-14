@@ -15,12 +15,12 @@ passport.deserializeUser((obj, done) => {
 
 passport.use(new facebookStrategy({
     clientID: config.facebookApiKey,
-    clientSecret: config.facebookApiSecret
+    clientSecret: config.facebookApiSecret,
+    callbackURL: config.callbackUrl
 },
     (accessToken, refreshToken, profile, done) => {
-        process.nextTick(() => {
-            console.log(profile);
-        })
+        console.log(profile);
+        done(null, profile);
     }
 ))
 
@@ -35,10 +35,10 @@ router.get('/user', (req, res) => {
     });
 });
 
-router.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
+router.get('/facebook/login', passport.authenticate('facebook'));
 
-router.get('/callback', (req, res) => {
-    res.status(200).json({login: 'success'});
-});
+router.get('/callback', passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/failure'}), (req, res)  => {
+    res.redirect('/');
+})
 
 module.exports = router;
