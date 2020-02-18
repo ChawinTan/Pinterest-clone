@@ -19,8 +19,22 @@ passport.use(new facebookStrategy({
     callbackURL: config.callbackUrl
 },
     (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
-        done(null, profile);
+            process.nextTick(() => {
+            let queryUser = `SELECT * FROM User WHERE secret = ?`;
+            let insertUser = `INSERT INTO User (name, secret) VALUES (?, ?)`;
+            connection.query(queryUser, profile.id,  (err, data) => {
+                if (data.length === 0) {
+                    connection.query(insertUser, [profile.displayName, profile.id], (err, data) => {
+                        if (err) {
+                            throw(err);
+                        } else {
+                            console.log("sign up success");
+                        }
+                    });
+                }
+            });
+            return done(null, profile);
+        })
     }
 ))
 
