@@ -5,6 +5,8 @@ var connection = require("../sql");
 var config = require("../config");
 var router = express.Router();
 
+let userId = '';
+
 passport.serializeUser((user, done) => {
     done(null, user);
 });
@@ -28,10 +30,12 @@ passport.use(new facebookStrategy({
                         if (err) {
                             throw(err);
                         } else {
-                            console.log("sign up success");
+                            userId = profile.id;
                         }
                     });
-                }
+                } else {
+                    userId = profile.id;
+                } 
             });
             return done(null, profile);
         })
@@ -39,8 +43,8 @@ passport.use(new facebookStrategy({
 ))
 
 router.get('/user', (req, res) => {
-    let getUser = `SELECT * FROM User WHERE id = 1`;
-    connection.query(getUser, (err, data) => {
+    let getUser = `SELECT * FROM User WHERE secret = ?`;
+    connection.query(getUser, userId, (err, data) => {
         if (err) {
             throw err;
         } else {
