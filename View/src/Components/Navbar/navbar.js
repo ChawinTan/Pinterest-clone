@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -30,6 +30,15 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar() {
     const classes = useStyles();
+
+    const [open, setOpen] = useState(false);
+    const handleLoginDialogOpen = () => {
+        setOpen(true);
+    }
+    const handleLoginDialogClose = () => {
+        setOpen(false);
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static" style={{ backgroundColor: "#c8232c" }}>
@@ -37,12 +46,13 @@ function Navbar() {
                     <Typography variant="h6" align="left" className={classes.title}>
                         Simple Pinterest
                     </Typography>
-                    <IconButton>
+                    <IconButton onClick={handleLoginDialogOpen}>
                         <Typography className={classes.loginText}>Login</Typography>
                         <ContactsIcon className={classes.loginIcon} />
                     </IconButton>
                 </Toolbar>
             </AppBar>
+            <Login open={open} onClose={handleLoginDialogClose} />
         </div>
     );
 }
