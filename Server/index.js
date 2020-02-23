@@ -23,7 +23,7 @@ app.use(passport.session());
 app.use('/user', userRoutes); 
 
 app.get('/', (req, res) => {
-    res.status(200).json({ state: 'success' });
+    res.redirect('http://localhost:3000');
 })
 
 app.get('/failure', (req, res) => {
