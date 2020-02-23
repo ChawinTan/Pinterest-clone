@@ -3,16 +3,29 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import ContactsIcon from '@material-ui/icons/Contacts';
+
+import Login from '../Login/login';
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1
       },
       title: {
+        flexGrow: 1,
         letterSpacing: 3,
         fontFamily: "Comic Sans MS",
-        fontWeight: 500
+        fontWeight: 600
       },
+      loginIcon: {
+          color: "#ffffff"
+      },
+      loginText: {
+        color: "#ffffff",
+        marginRight: theme.spacing(2),
+        fontFamily: "Comic Sans MS",
+      }
 }));
 
 function Navbar() {
@@ -21,9 +34,13 @@ function Navbar() {
         <div className={classes.root}>
             <AppBar position="static" style={{ backgroundColor: "#c8232c" }}>
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h6" align="left" className={classes.title}>
                         Simple Pinterest
                     </Typography>
+                    <IconButton>
+                        <Typography className={classes.loginText}>Login</Typography>
+                        <ContactsIcon className={classes.loginIcon} />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </div>
