@@ -25,11 +25,17 @@ const useStyles = makeStyles(theme => ({
         color: "#ffffff",
         marginRight: theme.spacing(2),
         fontFamily: "Comic Sans MS",
+      },
+      userText: {
+          color: "#ffffff",
+          fontFamily: "Comic Sans MS"
       }
 }));
 
-function Navbar() {
+function Navbar(props) {
     const classes = useStyles();
+
+    const { loginState } = props;
 
     const [open, setOpen] = useState(false);
     const handleLoginDialogOpen = () => {
@@ -46,10 +52,15 @@ function Navbar() {
                     <Typography variant="h6" align="left" className={classes.title}>
                         Simple Pinterest
                     </Typography>
-                    <IconButton onClick={handleLoginDialogOpen}>
-                        <Typography className={classes.loginText}>Login</Typography>
-                        <ContactsIcon className={classes.loginIcon} />
-                    </IconButton>
+                    {
+                        loginState ?
+                        <Typography className={classes.userText}>Welcome user</Typography>
+                        :
+                        <IconButton onClick={handleLoginDialogOpen}>
+                            <Typography className={classes.loginText}>Login</Typography>
+                            <ContactsIcon className={classes.loginIcon} />
+                        </IconButton>
+                    }
                 </Toolbar>
             </AppBar>
             <Login open={open} onClose={handleLoginDialogClose} />
