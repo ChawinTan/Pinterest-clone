@@ -5,7 +5,7 @@ import Navbar from "./Container/NavBarContainer";
 import './App.css';
 
 function App(props) {
-  const { loginState, checkLogin } = props;
+  const { loginState, checkLogin, addUser } = props;
 
   useEffect(() => {
     const url = 'https://localhost:8081/user/user';
@@ -21,8 +21,8 @@ function App(props) {
       if (json.length === 0) {
         checkLogin(false);
       } else {
-        console.log(json)
-        checkLogin(true)
+        addUser(json[0]);
+        checkLogin(true);
       }
     });
   })
