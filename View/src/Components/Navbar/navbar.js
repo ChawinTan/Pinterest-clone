@@ -3,8 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
 import ContactsIcon from '@material-ui/icons/Contacts';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Login from '../Login/login';
 
@@ -18,7 +20,7 @@ const useStyles = makeStyles(theme => ({
         fontFamily: "Comic Sans MS",
         fontWeight: 600
       },
-      loginIcon: {
+      loginlogoutIcon: {
           color: "#ffffff"
       },
       loginText: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props) {
     const classes = useStyles();
 
-    const { loginState, userState } = props;
+    const { loginState, userState, checkLogout, removeUser } = props;
 
     const [open, setOpen] = useState(false);
     const handleLoginDialogOpen = () => {
@@ -43,6 +45,26 @@ function Navbar(props) {
     }
     const handleLoginDialogClose = () => {
         setOpen(false);
+    }
+
+    const handleLogout = () => {
+        const url = 'https://localhost:8081/user/logout';
+        
+        fetch(url, {
+            method: 'get',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(json => {
+            if (json.logout) {
+                checkLogout(false);
+                removeUser();
+            } else {
+                alert('something went wrong when login out');
+            }
+        })
     }
 
     return (
@@ -54,12 +76,22 @@ function Navbar(props) {
                     </Typography>
                     {
                         loginState ?
-                    <Typography className={classes.userText}>Welcome {userState.name}</Typography>
+                        <Typography className={classes.userText}>Welcome {userState.name}</Typography>
                         :
                         <IconButton onClick={handleLoginDialogOpen}>
                             <Typography className={classes.loginText}>Login</Typography>
-                            <ContactsIcon className={classes.loginIcon} />
+                            <ContactsIcon className={classes.loginlogoutIcon} />
                         </IconButton>
+                    }
+                    {
+                        loginState ?
+                        <Tooltip title="Logout">
+                            <IconButton aria-label="logout" onClick={handleLogout}>
+                                <ExitToAppIcon className={classes.loginlogoutIcon} />
+                            </IconButton>
+                        </Tooltip>
+                        :
+                        null
                     }
                 </Toolbar>
             </AppBar>

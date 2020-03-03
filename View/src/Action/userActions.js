@@ -4,3 +4,10 @@ export function addUser(user) {
         payload : user
     };
 }
+
+export function removeUser() {
+    return {
+        type: 'REMOVE_USER',
+        payload : {}
+    };
+}

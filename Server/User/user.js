@@ -57,6 +57,8 @@ router.get('/logout',  (req, res) => {
     if (userId) {
         userId = '';
         res.status(200).json({ logout: true });
+    } else if (err) {
+        throw (err);
     }
 })
 

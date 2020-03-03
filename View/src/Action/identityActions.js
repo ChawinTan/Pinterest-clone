@@ -5,9 +5,9 @@ export function checkLogin(loginState) {
     }
 }
 
-export function updateUserDetails(userDetails) {
+export function checkLogout(logoutState) {
     return {
-        type: 'UPDATE_USERDETAILS',
-        payload: userDetails
-    }
+        type: 'CHECK_LOGOUT',
+        payload: logoutState
+    };
 }
