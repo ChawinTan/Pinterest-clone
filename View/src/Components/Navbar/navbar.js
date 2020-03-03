@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props) {
     const classes = useStyles();
 
-    const { loginState } = props;
+    const { loginState, userState } = props;
 
     const [open, setOpen] = useState(false);
     const handleLoginDialogOpen = () => {
@@ -54,7 +54,7 @@ function Navbar(props) {
                     </Typography>
                     {
                         loginState ?
-                        <Typography className={classes.userText}>Welcome user</Typography>
+                    <Typography className={classes.userText}>Welcome {userState.name}</Typography>
                         :
                         <IconButton onClick={handleLoginDialogOpen}>
                             <Typography className={classes.loginText}>Login</Typography>
