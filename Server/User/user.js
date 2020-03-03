@@ -6,6 +6,7 @@ var config = require("../config");
 var router = express.Router();
 
 let userId = '';
+let userAccessToken  = ''
 
 passport.serializeUser((user, done) => {
     done(null, user);
@@ -31,12 +32,15 @@ passport.use(new facebookStrategy({
                             throw(err);
                         } else {
                             userId = profile.id;
+                            userAccessToken = accessToken;
                         }
                     });
                 } else {
                     userId = profile.id;
+                    userAccessToken = accessToken;
                 } 
             });
+            
             return done(null, profile);
         })
     }
@@ -60,6 +64,11 @@ router.get('/logout',  (req, res) => {
     } else if (err) {
         throw (err);
     }
+});
+
+router.get('/tokens', (req, res) =>  {
+    const tokens = { accessToken: userAccessToken };
+    res.status(200).json(tokens);
 })
 
 router.get('/facebook/login', passport.authenticate('facebook'));
