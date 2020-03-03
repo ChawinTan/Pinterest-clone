@@ -53,6 +53,13 @@ router.get('/user', (req, res) => {
     });
 });
 
+router.get('/logout',  (req, res) => {
+    if (userId) {
+        userId = '';
+        res.status(200).json({ logout: true });
+    }
+})
+
 router.get('/facebook/login', passport.authenticate('facebook'));
 
 router.get('/callback', passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/failure'}), (req, res)  => {
