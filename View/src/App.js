@@ -31,8 +31,8 @@ function App(props) {
   return (
     <div className="App">
       <Navbar />
-      <GetPhoto />
-     {loginState ? <div>User exist</div>: <div>No user yet</div>}
+      {loginState ? <GetPhoto /> : null}
+      {loginState ? <div>User exist</div> : <div>No user yet</div>}
     </div>
   );
 }
