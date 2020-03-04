@@ -41,6 +41,16 @@ Here are some things you have to take note:
 4. Under Facebook Login  -> Settings, add `https://localhost:8081/user/callback` as a valid redirect url
 5. Under quickstart, chose Web and add the above callback url as your Site URL.
 
+## Database
+
+### User
+Fields (type)
+
+1. id (int)
+2. name (varchar)
+3. secret (varchar)
+4. get_photos (bit)
+
 ## Available Scripts
 
 In the project directory, you can run:

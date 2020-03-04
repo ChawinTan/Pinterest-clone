@@ -24,7 +24,7 @@ passport.use(new facebookStrategy({
     (accessToken, refreshToken, profile, done) => {
             process.nextTick(() => {
             let queryUser = `SELECT * FROM User WHERE secret = ?`;
-            let insertUser = `INSERT INTO User (name, secret) VALUES (?, ?)`;
+            let insertUser = `INSERT INTO User (name, secret, get_photos) VALUES (?, ?, 0)`;
             connection.query(queryUser, profile.id,  (err, data) => {
                 if (data.length === 0) {
                     connection.query(insertUser, [profile.displayName, profile.id], (err, data) => {
