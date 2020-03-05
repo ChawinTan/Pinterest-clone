@@ -28,14 +28,35 @@ const useStyles = makeStyles(theme  => ({
     }
 }))
 
+const fetchPhoto = (userId) => {
+    fetch('https://localhost:8081/user/tokens', {
+        method: 'get',
+        headers: { 
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+    }).then(res => res.json())
+    .then(json => json.accessToken)
+    .then(token => {
+        fetch(`https://graph.facebook.com/${userId}/photos?access_token=${token}`, {
+            method: 'get',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+        }).then(res => res.json())
+        .then(json => console.log(json))
+    })
+}
+
 function GetPhoto(props) {
     const classes = useStyles();
-    const { getPhoto } =  props;
+    const { getPhoto, userId } =  props;
 
     return (
         <div style={styles.root}>
             <Paper className={classes.paper}>
-                <Button className={classes.button}>{ getPhoto === 0 ? 'Get Photos' : 'Update Photos' }</Button>
+                <Button className={classes.button} onClick={() => {fetchPhoto(userId)}}>{ getPhoto === 0 ? 'Get Photos' : 'Update Photos' }</Button>
                 <span style={styles.span}>{ getPhoto === 0 ? 'Click to import photos from your facebook' : 'Click to import new photos'}</span>
             </Paper>
         </div>
