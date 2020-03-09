@@ -46,10 +46,16 @@ Here are some things you have to take note:
 ### User
 Fields (type)
 
-1. id (int)
+1. id (int) - primary key
 2. name (varchar)
 3. secret (varchar)
-4. get_photos (bit)
+
+### Photo
+Fields (type)
+
+1. id (int) - primary key
+2. user_id (varchar)
+3. link (varchar)
 
 ## Available Scripts
 
