@@ -10,6 +10,11 @@ const styles = {
     },
     span: {
         marginLeft: '1rem'
+    },
+    input: {
+        padding: '0.3rem',
+        fontSize: '0.8rem',
+        width: '300px'
     }
 }
 
@@ -38,6 +43,7 @@ function GetPhoto(props) {
             <Paper className={classes.paper}>
                 <Button className={classes.button} >Add Photo</Button>
                 <span style={styles.span}>Click to add photos</span>
+                <span style={styles.span}><input style={styles.input} placeholder="Enter photo link"/></span>
             </Paper>
         </div>
     )
