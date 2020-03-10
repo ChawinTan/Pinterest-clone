@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -33,17 +33,42 @@ const useStyles = makeStyles(theme  => ({
     }
 }))
 
+const addPhoto = (link, userId, setLink, event) => {
+    event.preventDefault();
+    const url = `https://localhost:8081/photo/add/${userId}`;
+    fetch(url, {
+        method: 'post',
+        headers: { 
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ link })
+    }).then(res => res.json())
+    .then(json => {
+        if (json.status === 'added') {
+            setLink('');
+        }
+    }).catch(err => {
+        alert(err);
+    })
+}
+
 
 function GetPhoto(props) {
     const classes = useStyles();
     const { userId } =  props;
 
+    const [link, setLink] = useState('');
+    const handleLink = (event) => {
+        setLink(event.target.value);
+    }
+
     return (
         <div style={styles.root}>
             <Paper className={classes.paper}>
-                <Button className={classes.button} >Add Photo</Button>
+                <Button className={classes.button} onClick={(event) => {addPhoto(link, userId, setLink, event)}} >Add Photo</Button>
                 <span style={styles.span}>Click to add photos</span>
-                <span style={styles.span}><input style={styles.input} placeholder="Enter photo link"/></span>
+                <span style={styles.span}><input style={styles.input} onChange={handleLink} placeholder="Enter photo link" value={link}/></span>
             </Paper>
         </div>
     )
