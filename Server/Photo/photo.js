@@ -14,4 +14,16 @@ router.post('/add/:user_id', (req, res) => {
     });
 });
 
+router.get('/delete/:id', (req, res) => {
+    const delete_photo = `DELETE FROM Photo WHERE id = ?`;
+
+    connection.query(delete_photo, req.params.id, (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            res.status(200).json({status: 'deleted'});
+        }
+    });
+})
+
 module.exports = router;
