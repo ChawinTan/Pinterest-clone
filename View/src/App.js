@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import Navbar from "./Container/NavBarContainer";
 import GetPhoto from "./Container/GetPhotoContainer";
+import UserBoard from "./Container/UserBoardContainer";
 
 import './App.css';
 
@@ -32,7 +33,7 @@ function App(props) {
     <div className="App">
       <Navbar />
       {loginState ? <GetPhoto /> : null}
-      {loginState ? <div>User exist</div> : <div>No user yet</div>}
+      {loginState ? <UserBoard /> : <div>No user yet</div>}
     </div>
   );
 }
