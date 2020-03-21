@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import App from '../App';
 import { checkLogin } from '../Action/identityActions';
 import { addUser } from '../Action/userActions';
+import  { storePhotos } from '../Action/photoAction';
 
 export const mapStateToProps = state => {
     return {
@@ -17,7 +18,10 @@ export const mapDispatchToProps = dispatch => {
         },
         addUser: (user) => {
             dispatch(addUser(user));
-        }
+        },
+        storePhotos: (fetchedPhotos) => {
+            dispatch(storePhotos(fetchedPhotos));
+        },
     };
 };
 
