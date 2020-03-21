@@ -26,7 +26,6 @@ function UserBoard(props)  {
             <Grid container spacing={3}>
                 {
                     photos.map((photo, id) => {
-                        console.log(photo.link)
                         return (
                             <Grid key={id} item xs={3}>
                                 <Card>
