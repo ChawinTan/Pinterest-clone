@@ -15,7 +15,7 @@ router.get('/get/:user_id', (req, res) => {
 })
 
 router.post('/add/:user_id', (req, res) => {
-    const add_photo = `INSERT INTO Photo (user_id, link) VALUES (? ,?)`;
+    const add_photo = `INSERT INTO Photo (user_id, link, description) VALUES (?, ?, null)`;
 
     connection.query(add_photo, [req.params.user_id, req.body.link], (err, data) => {
         if (err) {

@@ -28,18 +28,20 @@ function App(props) {
       }
       return json;
     }).then(user => {
-      const url = `https://localhost:8081/photo/get/${user[0].secret}`;
+      if (user.length > 0) {
+        const url = `https://localhost:8081/photo/get/${user[0].secret}`;
 
-        fetch(url, {
-            method: 'get',
-            headers: { 
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-        .then(json => { 
-            storePhotos(json);
-        })
+          fetch(url, {
+              method: 'get',
+              headers: { 
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+              }
+          }).then(res => res.json())
+          .then(json => { 
+              storePhotos(json);
+          })
+        }
     })
   })
 
