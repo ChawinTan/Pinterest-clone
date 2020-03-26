@@ -26,6 +26,19 @@ router.post('/add/:user_id', (req, res) => {
     });
 });
 
+router.post('/update/:id', (req, res) => {
+    const updatePhoto = `UPDATE Photo SET description = ? WHERE id = ?`;
+
+    connection.query(updatePhoto, [req.body.description, req.params.id], (err, data) => {
+        console.log(data);
+        if (err) {
+            throw err;
+        } else {
+            res.status(200).json({status: 'updated'});
+        }
+    });
+})
+
 router.get('/delete/:id', (req, res) => {
     const delete_photo = `DELETE FROM Photo WHERE id = ?`;
 
