@@ -30,7 +30,6 @@ router.post('/update/:id', (req, res) => {
     const updatePhoto = `UPDATE Photo SET description = ? WHERE id = ?`;
 
     connection.query(updatePhoto, [req.body.description, req.params.id], (err, data) => {
-        console.log(data);
         if (err) {
             throw err;
         } else {

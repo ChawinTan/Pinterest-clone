@@ -53,7 +53,23 @@ function UserBoard(props)  {
     }
 
     const handleDescClick = (index) => {
-        console.log(photoCopy);
+        const description = photoCopy[index].description;
+        const id = photoCopy[index].id;
+        const url = `https://localhost:8081/photo/update/${id}`;
+
+        fetch(url, {
+            method: 'post',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ description })
+        }).then(res => res.json())
+        .then(json => {
+            if (json) {
+                console.log(json.status);
+            }
+        })
     }
 
     return (
@@ -85,7 +101,7 @@ function UserBoard(props)  {
                                             null
 
                                         }
-                                        { userId === photo.user_id ? <IconButton className={classes.checkIcon} onClick={handleDescClick}><CheckCircleIcon/></IconButton> : null }
+                                        { userId === photo.user_id ? <IconButton className={classes.checkIcon} onClick={() => {handleDescClick(id)}}><CheckCircleIcon/></IconButton> : null }
                                         { userId === photo.user_id ? <IconButton className={classes.deleteIcon} ><DeleteForeverIcon/></IconButton> : null }
                                     </CardContent>
                                 </Card>
