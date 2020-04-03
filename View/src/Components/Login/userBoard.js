@@ -101,7 +101,7 @@ function UserBoard(props)  {
                                             null
 
                                         }
-                                        { userId === photo.user_id ? <IconButton className={classes.checkIcon} onClick={() => {handleDescClick(id)}}><CheckCircleIcon/></IconButton> : null }
+                                        { userId === photo.user_id && !photo.description ? <IconButton className={classes.checkIcon} onClick={() => {handleDescClick(id)}}><CheckCircleIcon/></IconButton> : null }
                                         { userId === photo.user_id ? <IconButton className={classes.deleteIcon} ><DeleteForeverIcon/></IconButton> : null }
                                     </CardContent>
                                 </Card>
