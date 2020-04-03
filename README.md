@@ -56,6 +56,7 @@ Fields (type)
 1. id (int) - primary key
 2. user_id (varchar)
 3. link (varchar)
+4. description (varchar)
 
 ## Available Scripts
 
