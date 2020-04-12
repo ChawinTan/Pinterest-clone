@@ -13,6 +13,7 @@ const options = {
 var userRoutes = require('./User/user');
 var photoRoutes = require('./Photo/photo');
 var landingRoutes = require('./Landing/landing');
+var searchRoutes = require('./Search/search');
 
 var  app = express();
 const server = https.createServer({key: options.key, cert: options.cert}, app);
@@ -25,6 +26,7 @@ app.use(passport.session());
 app.use('/user', userRoutes); 
 app.use('/photo', photoRoutes);
 app.use('/landing', landingRoutes);
+app.use('/search', searchRoutes)
 
 app.get('/', (req, res) => {
     res.redirect('http://localhost:3000');
