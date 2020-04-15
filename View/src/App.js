@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { Switch, Route } from "react-router-dom";
 
 import Navbar from "./Container/NavBarContainer";
 import GetPhoto from "./Container/GetPhotoContainer";
 import UserBoard from "./Container/UserBoardContainer";
 import LandingPage from "./Container/landingPageContainer";
+import Search from "./Container/searchContainer";
 
 import './App.css';
 
@@ -51,6 +53,9 @@ function App(props) {
       <Navbar />
       {loginState ? <GetPhoto /> : null}
       {loginState ? <UserBoard /> : <LandingPage />}
+      <Switch>
+        <Route path={"/search"} component={Search} />
+      </Switch>
     </div>
   );
 }

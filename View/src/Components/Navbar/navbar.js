@@ -7,6 +7,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
 import ContactsIcon from '@material-ui/icons/Contacts';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SearchIcon from '@material-ui/icons/Search';
+import { Link } from "react-router-dom";
 
 import Login from '../Login/login';
 
@@ -20,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         fontFamily: "Comic Sans MS",
         fontWeight: 600
       },
-      loginlogoutIcon: {
+      icon: {
           color: "#ffffff"
       },
       loginText: {
@@ -30,7 +32,13 @@ const useStyles = makeStyles(theme => ({
       },
       userText: {
           color: "#ffffff",
-          fontFamily: "Comic Sans MS"
+          fontFamily: "Comic Sans MS",
+          paddingLeft: '2rem'
+      },
+      searchText: {
+        color: "#ffffff",
+        fontFamily: "Comic Sans MS",
+        marginRight: '0.5rem'
       }
 }));
 
@@ -76,18 +84,26 @@ function Navbar(props) {
                     </Typography>
                     {
                         loginState ?
-                        <Typography className={classes.userText}>Welcome {userState.name}</Typography>
+                        <React.Fragment>
+                            <Tooltip title="Search">
+                                <IconButton aria-label="search" component={Link} to={"/search"}>
+                                    <Typography className={classes.searchText}>Search</Typography>
+                                    <SearchIcon className={classes.icon} />
+                                </IconButton>
+                            </Tooltip>
+                            <Typography className={classes.userText}>Welcome {userState.name}</Typography>
+                        </React.Fragment>
                         :
                         <IconButton onClick={handleLoginDialogOpen}>
                             <Typography className={classes.loginText}>Login</Typography>
-                            <ContactsIcon className={classes.loginlogoutIcon} />
+                            <ContactsIcon className={classes.icon} />
                         </IconButton>
                     }
                     {
                         loginState ?
                         <Tooltip title="Logout">
                             <IconButton aria-label="logout" onClick={handleLogout}>
-                                <ExitToAppIcon className={classes.loginlogoutIcon} />
+                                <ExitToAppIcon className={classes.icon} />
                             </IconButton>
                         </Tooltip>
                         :
