@@ -7,7 +7,8 @@ import  { storePhotos } from '../Action/photoAction';
 
 export const mapStateToProps = state => {
     return {
-      loginState: state.loginReducer
+      loginState: state.loginReducer,
+      searchState: state.searchReducer
     };
 };
 

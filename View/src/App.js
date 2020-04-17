@@ -10,7 +10,7 @@ import Search from "./Container/searchContainer";
 import './App.css';
 
 function App(props) {
-  const { loginState, checkLogin, addUser, storePhotos } = props;
+  const { loginState, checkLogin, addUser, storePhotos, searchState } = props;
 
   useEffect(() => {
     const url = 'https://localhost:8081/user/user';
@@ -51,11 +51,14 @@ function App(props) {
   return (
     <div className="App">
       <Navbar />
-      {loginState ? <GetPhoto /> : null}
-      {loginState ? <UserBoard /> : <LandingPage />}
-      <Switch>
-        <Route path={"/search"} component={Search} />
-      </Switch>
+      {
+        loginState && searchState ? <Search /> : 
+        loginState && !searchState ? <GetPhoto /> : null
+      }
+      {
+        loginState && searchState ? null :
+        loginState && !searchState ?  <UserBoard /> : <LandingPage />
+      }
     </div>
   );
 }

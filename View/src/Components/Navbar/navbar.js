@@ -8,7 +8,6 @@ import IconButton from "@material-ui/core/IconButton";
 import ContactsIcon from '@material-ui/icons/Contacts';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link } from "react-router-dom";
 
 import Login from '../Login/login';
 
@@ -45,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props) {
     const classes = useStyles();
 
-    const { loginState, userState, checkLogout, removeUser } = props;
+    const { loginState, userState, checkLogout, removeUser, enterSearch } = props;
 
     const [open, setOpen] = useState(false);
     const handleLoginDialogOpen = () => {
@@ -53,6 +52,10 @@ function Navbar(props) {
     }
     const handleLoginDialogClose = () => {
         setOpen(false);
+    }
+
+    const handleEnterSearch = () => {
+        enterSearch(true);
     }
 
     const handleLogout = () => {
@@ -86,7 +89,7 @@ function Navbar(props) {
                         loginState ?
                         <React.Fragment>
                             <Tooltip title="Search">
-                                <IconButton aria-label="search" component={Link} to={"/search"}>
+                                <IconButton aria-label="search" onClick={handleEnterSearch}>
                                     <Typography className={classes.searchText}>Search</Typography>
                                     <SearchIcon className={classes.icon} />
                                 </IconButton>

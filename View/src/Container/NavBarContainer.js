@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Navbar from '../Components/Navbar/navbar';
 import { checkLogout } from '../Action/identityActions';
 import { removeUser } from '../Action/userActions';
+import { enterSearch } from '../Action/searchActions';
  
 export const mapStateToProps = state => {
     return {
@@ -18,6 +19,9 @@ export const mapDispatchToProps = dispatch => {
       },
       removeUser: () => {
           dispatch(removeUser());
+      },
+      enterSearch: (searchState) => {
+        dispatch(enterSearch(searchState));
       }
   };
 };

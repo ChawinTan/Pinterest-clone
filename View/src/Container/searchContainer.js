@@ -1,6 +1,14 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import Search from "../Components/Search/search";
+import { exitSearch } from "../Action/searchActions";
 
-export default withRouter(connect(null, null)(Search));
+export const mapDispatchToProps = dispatch => {
+    return {
+        exitSearch: (searchState) => {
+            dispatch(exitSearch(searchState))
+        }
+    };
+  };
+
+export default connect(null, mapDispatchToProps)(Search);
