@@ -11,3 +11,10 @@ export function exitSearch(searchState) {
         payload: searchState
     }
 }
+
+export function userSearch(searchItems) {
+    return {
+        type: 'USER_SEARCH',
+        payload: searchItems
+    }
+}

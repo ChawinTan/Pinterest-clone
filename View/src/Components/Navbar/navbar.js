@@ -11,6 +11,13 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import Login from '../Login/login';
 
+const styles = {
+    searchInput: {
+        padding: '0.1rem 0.3rem',
+        fontSize: '0.8rem'
+    }
+}
+
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1
@@ -33,11 +40,6 @@ const useStyles = makeStyles(theme => ({
           color: "#ffffff",
           fontFamily: "Comic Sans MS",
           paddingLeft: '2rem'
-      },
-      searchText: {
-        color: "#ffffff",
-        fontFamily: "Comic Sans MS",
-        marginRight: '0.5rem'
       }
 }));
 
@@ -47,15 +49,32 @@ function Navbar(props) {
     const { loginState, userState, checkLogout, removeUser, enterSearch } = props;
 
     const [open, setOpen] = useState(false);
+    const [search, setSearch] = useState('');
     const handleLoginDialogOpen = () => {
         setOpen(true);
     }
+
     const handleLoginDialogClose = () => {
         setOpen(false);
     }
 
     const handleEnterSearch = () => {
-        enterSearch(true);
+        const url = 'https://localhost:8081/search/';
+        fetch(url, {
+            method: 'post',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ searchTerm: search })
+        }).then(res => res.json())
+        .then(json => {
+            enterSearch(true);
+        })
+    }
+
+    const handleSearchInput = (e) => {
+        setSearch(e.target.value);
     }
 
     const handleLogout = () => {
@@ -88,9 +107,9 @@ function Navbar(props) {
                     {
                         loginState ?
                         <React.Fragment>
+                            <input onChange={handleSearchInput} style={styles.searchInput} placeholder="Type to search" />
                             <Tooltip title="Search">
                                 <IconButton aria-label="search" onClick={handleEnterSearch}>
-                                    <Typography className={classes.searchText}>Search</Typography>
                                     <SearchIcon className={classes.icon} />
                                 </IconButton>
                             </Tooltip>
