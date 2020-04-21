@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 function Navbar(props) {
     const classes = useStyles();
 
-    const { loginState, userState, checkLogout, removeUser, enterSearch } = props;
+    const { loginState, userState, checkLogout, removeUser, enterSearch, userSearch } = props;
 
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState('');
@@ -69,6 +69,7 @@ function Navbar(props) {
             body: JSON.stringify({ searchTerm: search })
         }).then(res => res.json())
         .then(json => {
+            userSearch(json);
             enterSearch(true);
         })
     }

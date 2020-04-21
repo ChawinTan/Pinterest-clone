@@ -5,7 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from "@material-ui/core/IconButton";
 
 function Search(props) {
-    const { exitSearch } = props;
+    const { exitSearch, searchItems } = props;
 
     const handleExitSearch = () => {
         exitSearch(false);
