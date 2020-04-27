@@ -46,17 +46,25 @@ Here are some things you have to take note:
 ### User
 Fields (type)
 
-1. id (int) - primary key
+1. id (int) - primary key, auto increment
 2. name (varchar)
 3. secret (varchar)
 
 ### Photo
 Fields (type)
 
-1. id (int) - primary key
+1. id (int) - primary key, auto increment
 2. user_id (varchar)
 3. link (varchar)
 4. description (varchar)
+
+### Photo link map
+Fields (type)
+
+1. id (int) - primary key, auto increment
+2. user_id (varchar)
+3. photo_id (int)
+4. counter_party_id (varchar)
 
 ## Available Scripts
 
