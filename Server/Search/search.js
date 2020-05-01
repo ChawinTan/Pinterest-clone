@@ -19,4 +19,16 @@ router.post('/', (req, res) => {
     })
 })
 
+router.post('/select', (req, res) => {
+    const select = `SELECT * FROM Photo WHERE user_id = ?`;
+
+    connection.query(select, [req.body.user],  (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            res.status(200).json(data);
+        }
+    })
+})
+
 module.exports = router;

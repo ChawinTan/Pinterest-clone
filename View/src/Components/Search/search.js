@@ -34,9 +34,26 @@ const styles = {
 
 function Search(props) {
     const { exitSearch, searchItems } = props;
-    console.log(searchItems)
+
     const handleExitSearch = () => {
         exitSearch(false);
+    }
+
+    const handleSearchClick = (index) => {
+        const item = searchItems[index];
+        const url = 'https://localhost:8081/search/select';
+
+        fetch(url, {
+            method: 'post',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user: item.secret })
+        }).then(res =>  res.json())
+        .then((json => {
+            console.log(json);
+        }))
     }
 
     return (
@@ -54,7 +71,7 @@ function Search(props) {
                 {
                     searchItems.map((item, index) => {
                         return (
-                            <div style={styles.searchItem} key={index}>
+                            <div style={styles.searchItem} key={index} onClick={() => { handleSearchClick(index) }}>
                                 {item.name}
                             </div>
                         )
