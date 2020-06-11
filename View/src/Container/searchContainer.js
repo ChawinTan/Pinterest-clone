@@ -5,7 +5,8 @@ import { exitSearch } from "../Action/searchActions";
 
 export const mapStateToProps = state => {
     return {
-        searchItems: state.searchItemReducer ? state.searchItemReducer : []
+        searchItems: state.searchItemReducer ? state.searchItemReducer : [],
+        currUser: state.userReducer ? state.userReducer : {}
     };
 };
 

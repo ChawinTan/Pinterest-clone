@@ -53,7 +53,8 @@ const useStyle = makeStyles(() => ({
 
 function Search(props) {
     const classes = useStyle();
-    const { exitSearch, searchItems } = props;
+    const { exitSearch, searchItems, currUser } = props;
+    console.log(currUser)
     const [ results, setResults ] = useState([]);
 
     const handleExitSearch = () => {
@@ -78,6 +79,14 @@ function Search(props) {
         }))
     }
 
+    const handleLikeClick = (index) => {
+        const mapObj = {
+            userId: currUser.secret,
+            photoId: results[index].id,
+            counterParty: results[index].user_id
+        }
+    }
+
     return (
         <div style={styles.root}>
             <div style={styles.heading} >
@@ -92,11 +101,13 @@ function Search(props) {
             <div>
                 {
                     searchItems.map((item, index) => {
-                        return (
-                            <div style={styles.searchItem} key={index} onClick={() => { handleSearchClick(index) }}>
-                                {item.name}
-                            </div>
-                        )
+                        if (item.secret != currUser.secret) {
+                            return (
+                                <div style={styles.searchItem} key={index} onClick={() => { handleSearchClick(index) }}>
+                                    {item.name}
+                                </div>
+                            );
+                        }
                     })
                 }
             </div>
@@ -107,7 +118,6 @@ function Search(props) {
                     <Grid container spacing={3}>
                         {
                             results.map((item, id) => {
-                                console.log(item.link)
                                 return (
                                     <Grid key={id} item xs={3}>
                                         <Card>
@@ -118,9 +128,11 @@ function Search(props) {
                                             component="img"
                                             />
                                             <CardContent>
-                                                <IconButton>
+                                                <div>
+                                                <IconButton onClick={() => { handleLikeClick(id)}}>
                                                     <FavoriteIcon className={classes.favouriteIcon} />
                                                 </IconButton>
+                                                </div>
                                             </CardContent>
                                         </Card>
                                     </Grid>
