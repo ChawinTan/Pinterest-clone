@@ -50,4 +50,33 @@ router.get('/delete/:id', (req, res) => {
     });
 });
 
+router.get('/map_details/:user_id', (req, res) => {
+    let mapDetails = [];
+    let mapPhotos = [];
+    const getMap = `SELECT * FROM Photo_map where user_id = ?`;
+    const getMappedPhotos = `SELECT Photo.id, Photo.user_id, Photo.link, Photo.description from Photo JOIN Photo_map on Photo.id = Photo_map.photo_id AND Photo_map.user_id = ?`;
+
+    connection.query(getMap, [req.params.user_id], (err, data) => {
+        if (err) {
+            throw err;
+        } else {
+            mapDetails = data;
+            connection.query(getMappedPhotos, [req.params.user_id], (err, data) => {
+                if (err) {
+                    throw err;
+                } else {
+                    mapPhotos = data;
+
+                    const mapped = {
+                        details: mapDetails,
+                        photos: mapPhotos
+                    };
+        
+                    res.status(200).json(mapped);
+                }
+            });
+        }
+    });
+})
+
 module.exports = router;
