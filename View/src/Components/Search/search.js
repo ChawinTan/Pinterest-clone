@@ -84,7 +84,20 @@ function Search(props) {
             userId: currUser.secret,
             photoId: results[index].id,
             counterParty: results[index].user_id
-        }
+        };
+        const url = 'https://localhost:8081/search/like';
+
+        fetch(url, {
+            method: 'post',
+            headers: { 
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(mapObj)
+        }).then(res => res.json())
+        .then(json => {
+            console.log(json);
+        })
     }
 
     return (
