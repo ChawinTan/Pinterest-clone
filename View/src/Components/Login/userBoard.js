@@ -20,6 +20,16 @@ const styles = {
     input: {
         padding: '0.2rem',
         width: '150px'
+    },
+    likePhotoHeading: {
+        backgroundColor: '#c8232c',
+        padding: '1rem',
+        margin: '2rem 0',
+        textAlign: 'center',
+        fontFamily: "Comic Sans MS",
+        fontWeight: 600,
+        fontSize: '1.5rem',
+        color: '#FFFFFF'
     }
 }
 
@@ -38,7 +48,7 @@ const useStyle = makeStyles(() => ({
 
 function UserBoard(props)  {
     const classes = useStyle();
-    const { userId, photos } = props;
+    const { userId, photos, mappedPhotos } = props;
 
     const [photoCopy, setPhotoCopy] = useState([]);
     const handleDescChange = (e, index) => {
@@ -110,6 +120,35 @@ function UserBoard(props)  {
                     })
                 }
             </Grid>
+
+            <div style={styles.likePhotoHeading}>
+                Liked Photos
+            </div>
+            
+            <Grid container spacing={3}>
+                {  
+                    mappedPhotos && mappedPhotos.length > 0 ? 
+                    mappedPhotos.map((photo, id) => {
+                        return (
+                            <Grid key={id} item xs={3}>
+                                <Card>
+                                    <CardMedia
+                                    className={classes.cardMedia}
+                                    title='User picture'
+                                    image={photo.link}
+                                    component="img"
+                                     />
+                                    <CardContent>   
+                                        <span style={styles.description}>{photo.description}</span>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        )
+                    })
+                    :
+                    <div></div>
+                }
+            </Grid>    
         </div>
     )
 }
