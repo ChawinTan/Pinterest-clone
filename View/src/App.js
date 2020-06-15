@@ -10,7 +10,7 @@ import Search from "./Container/searchContainer";
 import './App.css';
 
 function App(props) {
-  const { loginState, checkLogin, addUser, storePhotos, searchState } = props;
+  const { loginState, checkLogin, addUser, storePhotos, searchState, getMapDetails } = props;
 
   useEffect(() => {
     const url = 'https://localhost:8081/user/user';
@@ -45,6 +45,22 @@ function App(props) {
               storePhotos(json);
           })
         }
+        return user;
+    }).then(user => {
+      if (user.length) {
+        const url = `https://localhost:8081/photo/map_details/${user[0].secret}`;
+
+        fetch(url, {
+          method: 'get',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+        .then(json => {
+          getMapDetails(json);
+        })
+      }
     })
   })
 

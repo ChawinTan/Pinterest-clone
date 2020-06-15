@@ -4,6 +4,8 @@ import App from '../App';
 import { checkLogin } from '../Action/identityActions';
 import { addUser } from '../Action/userActions';
 import  { storePhotos } from '../Action/photoAction';
+import { getMapDetails } from '../Action/mappedPhotoActions';
+import mappedPhotoReducer from "../Reducer/mappedPhotoReducer";
 
 export const mapStateToProps = state => {
     return {
@@ -23,6 +25,10 @@ export const mapDispatchToProps = dispatch => {
         storePhotos: (fetchedPhotos) => {
             dispatch(storePhotos(fetchedPhotos));
         },
+        getMapDetails: (mapDetails) => {
+            dispatch(getMapDetails(mapDetails));
+        }
+
     };
 };
 
