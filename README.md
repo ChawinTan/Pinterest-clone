@@ -16,7 +16,7 @@ Instructions for set up.
 
 ### Generating key and secret for https
 1. cd into `server` directory
-2. Follow the instructions in this [medium artical]("https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-using-express-366435d61f28")
+2. Follow the instructions in this [medium artical](https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-using-express-366435d61f28)
 
 ### Config files
 Under `Server` directory, create a `config.js` file.
