@@ -6,7 +6,9 @@ import { exitSearch } from "../Action/searchActions";
 export const mapStateToProps = state => {
     return {
         searchItems: state.searchItemReducer ? state.searchItemReducer : [],
-        currUser: state.userReducer ? state.userReducer : {}
+        currUser: state.userReducer ? state.userReducer : {},
+        mappedDetails: state.mappedPhotoReducer ? state.mappedPhotoReducer.details : [],
+        mappedPhotos: state.mappedPhotoReducer ? state.mappedPhotoReducer.photos : []
     };
 };
 

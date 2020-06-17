@@ -53,9 +53,11 @@ const useStyle = makeStyles(() => ({
 
 function Search(props) {
     const classes = useStyle();
-    const { exitSearch, searchItems, currUser } = props;
-    console.log(currUser)
+    const { exitSearch, searchItems, currUser, mappedDetails, mappedPhotos } = props;
+    console.log(mappedDetails)
+    console.log(mappedPhotos)
     const [ results, setResults ] = useState([]);
+    const [ likeId, setLikeId ] = useState([]);
 
     const handleExitSearch = () => {
         exitSearch(false);
@@ -76,7 +78,12 @@ function Search(props) {
         .then((json => {
             console.log(json)
             setResults(json);
-        }))
+        })).then(() => {
+            const likedPhotoId = mappedPhotos.map(photo => {
+                return photo.id;
+            });
+            setLikeId(likedPhotoId);
+        })
     }
 
     const handleLikeClick = (index) => {
@@ -142,9 +149,14 @@ function Search(props) {
                                             />
                                             <CardContent>
                                                 <div>
-                                                <IconButton onClick={() => { handleLikeClick(id)}}>
-                                                    <FavoriteIcon className={classes.favouriteIcon} />
-                                                </IconButton>
+                                                    {
+                                                        likeId.includes(item.id) ?
+                                                        <span>Liked</span>
+                                                        :
+                                                        <IconButton onClick={() => { handleLikeClick(id)}}>
+                                                            <FavoriteIcon className={classes.favouriteIcon} />
+                                                        </IconButton>
+                                                    }
                                                 </div>
                                             </CardContent>
                                         </Card>
